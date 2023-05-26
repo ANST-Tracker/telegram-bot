@@ -1,0 +1,27 @@
+server:
+  port: 9097
+
+tg:
+  bot:
+    name: course_v1_bot
+    token: ${BOT_TOKEN}
+
+backend:
+  url: http://localhost:8080/api
+
+storage:
+  user-state: userStageStorage
+  user-name: userNameStorage
+  access-token: accessTokenStorage
+  refresh-token: refreshTokenStorage
+
+security:
+  ttl:
+    access: 10m
+    refresh: 168h
+
+spring:
+  data:
+    redis:
+      host: localhost
+      port: 6379
