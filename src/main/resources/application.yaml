@@ -7,7 +7,7 @@ tg:
     token: ${BOT_TOKEN}
 
 backend:
-  url: http://localhost:8080/api
+  url: ${API_URL}
 
 storage:
   user-state: userStageStorage
@@ -20,8 +20,5 @@ security:
     access: 10m
     refresh: 168h
 
-spring:
-  data:
-    redis:
-      host: localhost
-      port: 6379
+redis:
+  url: ${REDIS_URL}
