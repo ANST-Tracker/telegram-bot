@@ -70,7 +70,7 @@ jobs:
           ssh-add - <<< "${{ secrets.SSH_KEY_DEV }}"
           ssh -o StrictHostKeyChecking=no -tt root@${{ secrets.HOST_IP_DEV }} << EOT
             cd deploy
-            docker pull allokanic/tg-bot
-            docker-compose restart tg-bot
+            docker-compose pull
+            docker-compose up -d
             exit
           EOT
