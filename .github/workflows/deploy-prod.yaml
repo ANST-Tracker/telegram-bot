@@ -24,7 +24,12 @@ jobs:
           distribution: 'temurin'
 
       - name: Maven build jar
-        run: mvn package
+        run: mvn clean test
+
+      - name: Upload coverage #https://app.codecov.io/gh/ANST-Tracker/telegram-bot/new
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   build-push-image:
     if: ${{ github.actor == 'Allokanic' }}
