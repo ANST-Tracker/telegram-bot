@@ -87,13 +87,13 @@ jobs:
           EOT
 
   success-notify:
-  needs: run-on-cloud
-  uses: ./.github/workflows/template-telegram.yaml
-  with:
-    message: |
-      Cluster: DEV 
-      TELEGRAM status: redeploying success
-  secrets: inherit
+    needs: run-on-cloud
+    uses: ./.github/workflows/template-telegram.yaml
+    with:
+      message: |
+        Cluster: DEV 
+        TELEGRAM status: redeploying success
+    secrets: inherit
 
   error-notify:
     needs: run-on-cloud
