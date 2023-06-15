@@ -8,11 +8,12 @@
         <version>3.0.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
-    <artifactId>tg</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>tg</name>
-    <description>tg</description>
+    <groupId>com.anst.sd</groupId>
+    <artifactId>telegram</artifactId>
+    <version>0.0.1</version>
+    <name>telegram</name>
+    <description>telegram bot for ANST Tracker</description>
+    <packaging>jar</packaging>
 
     <properties>
         <java.version>17</java.version>
@@ -88,6 +89,7 @@
     </dependencyManagement>
 
     <build>
+        <finalName>tg-bot</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

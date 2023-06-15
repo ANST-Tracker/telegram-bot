@@ -6,6 +6,11 @@ tg:
 backend:
   url: ${API_URL}
 
+logging:
+  level:
+    root: info
+    com.anst.sd.telegram: DEBUG
+
 storage:
   user-state: userStageStorage
   user-name: userNameStorage
