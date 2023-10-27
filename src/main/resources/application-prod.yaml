@@ -1,10 +1,10 @@
 tg:
   bot:
     name: course_v1_bot
-    token: ${BOT_TOKEN}
+    token: 6115795365:AAHM5HTbx9NAUjcSt_D6zU0R7UmkGIbZ8Ok
 
 backend:
-  url: ${API_URL}
+  url: http://core-api:8080/api
 
 logging:
   level:
@@ -23,4 +23,4 @@ security:
     refresh: 168h
 
 redis:
-  url: ${REDIS_URL}
+  url: redis://redis:6379
