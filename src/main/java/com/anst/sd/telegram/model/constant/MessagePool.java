@@ -3,6 +3,10 @@ package com.anst.sd.telegram.model.constant;
 public class MessagePool {
     public static final String INFO_START_MESSAGE = "Начать работу с ботом";
     public static final String LOGIN_IN_ACCOUNT_WITH_MESSAGE = "Ты можешь войти в аккаунт с помощью команды /login";
+    public static final String GET_CODE_SUCCESS = """
+            Добро пожаловать!🤗
+                        
+            Код для подтверждения аккаунта:""";
     public static final String INPUT_USERNAME_MESSAGE = "Введи имя пользователя:";
     public static final String INPUT_PASSWORD_MESSAGE = "Введи пароль:";
     public static final String INVALID_COMMAND_MESSAGE = "Неверная команда!";

@@ -11,7 +11,8 @@ public enum ECommand {
     CREATE("/create"),
     SHOW("/show"),
     START("/start"),
-    SIGNOUT("/signout");
+    SIGNOUT("/signout"),
+    CODE("/get_code");
 
     public static final Map<String, ECommand> stringCommands = Arrays.stream(ECommand.values())
                     .collect(Collectors.toMap(ECommand::getCommand, o -> o));
@@ -21,7 +22,8 @@ public enum ECommand {
             CREATE.getCommand(),
             SHOW.getCommand(),
             START.getCommand(),
-            SIGNOUT.getCommand()
+            SIGNOUT.getCommand(),
+            CODE.getCommand()
     );
 
     private final String command;

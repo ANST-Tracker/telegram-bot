@@ -24,3 +24,8 @@ security:
 
 redis:
   url: redis://localhost:6379
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://mongo:mongo@localhost:27017/tg?authSource=admin
