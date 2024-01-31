@@ -1,8 +1,6 @@
 package com.anst.sd.telegram;
 
-import com.anst.sd.telegram.model.enums.ECommand;
-import com.anst.sd.telegram.service.BotService;
-import com.anst.sd.telegram.model.constant.MessagePool;
+import com.anst.sd.telegram.app.impl.bot.BotProcessUseCase;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -20,15 +18,15 @@ import java.util.List;
 @Slf4j
 @Service
 public class MyTelegramBot extends TelegramLongPollingBot {
-    private final BotService botService;
+    private final BotProcessUseCase botProcessUseCase;
     @Value("${tg.bot.token}")
     private String token;
 
     @Value("${tg.bot.name}")
     private String username;
 
-    public MyTelegramBot(BotService botService) {
-        this.botService = botService;
+    public MyTelegramBot(BotProcessUseCase botProcessUseCase) {
+        this.botProcessUseCase = botProcessUseCase;
         initCommands();
     }
 
@@ -38,7 +36,7 @@ public class MyTelegramBot extends TelegramLongPollingBot {
         String messageText = update.getMessage().getText();
 
         if (update.hasMessage() && update.getMessage().hasText()) {
-            var result = botService.process(messageChatId, messageText);
+            var result = botProcessUseCase.process(messageChatId, messageText);
             sendMessage(messageChatId, result);
         }
     }
@@ -56,9 +54,6 @@ public class MyTelegramBot extends TelegramLongPollingBot {
     public void initCommands() {
         try {
             List<BotCommand> listOfCommands = new ArrayList<>();
-            listOfCommands.add(new BotCommand(
-                    ECommand.START.getCommand(),
-                    MessagePool.INFO_START_MESSAGE));
             execute(new SetMyCommands(
                     listOfCommands,
                     new BotCommandScopeDefault(),
