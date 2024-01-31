@@ -1,6 +1,5 @@
 package com.anst.sd.telegram.app.impl.command;
 
-import com.anst.sd.telegram.adapter.persistence.UserMongoRepository;
 import com.anst.sd.telegram.app.api.command.GetCodeInBound;
 import com.anst.sd.telegram.app.api.user.UserRepository;
 import com.anst.sd.telegram.domain.bot.BotChange;
@@ -17,7 +16,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class GetCodeUseCase implements GetCodeInBound {
     private final UserRepository userRepository;
-    private final UserMongoRepository userMongoRepository;
 
     @Override
     public BotChange handleGetCode(Long telegramId) {
@@ -29,7 +27,6 @@ public class GetCodeUseCase implements GetCodeInBound {
             String code = user.getCode();
             user.setCode(null);
             userRepository.save(user);
-            userMongoRepository.save(user);
 
             log.info("Code has been received");
             return new BotChange(" " + MessagePool.GET_CODE_SUCCESS + code);

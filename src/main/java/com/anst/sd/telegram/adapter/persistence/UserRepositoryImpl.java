@@ -19,6 +19,6 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public UserCode save(UserCode userCode) {
-        return userCode;
+        return userMongoRepository.save(userCode);
     }
 }
