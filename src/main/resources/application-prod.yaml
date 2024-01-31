@@ -24,3 +24,8 @@ security:
 
 redis:
   url: ${REDIS_URL}
+
+spring:
+  data:
+    mongodb:
+      uri: ${MONGO_URL}
