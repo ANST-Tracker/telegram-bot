@@ -1,6 +1,6 @@
 package com.anst.sd.telegram.fw.bot;
 
-import com.anst.sd.telegram.MyTelegramBot;
+import com.anst.sd.telegram.adapter.rest.bot.MyTelegramBot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;

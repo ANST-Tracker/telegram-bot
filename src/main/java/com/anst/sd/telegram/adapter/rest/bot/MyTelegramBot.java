@@ -1,6 +1,6 @@
-package com.anst.sd.telegram;
+package com.anst.sd.telegram.adapter.rest.bot;
 
-import com.anst.sd.telegram.app.impl.bot.BotProcessUseCase;
+import com.anst.sd.telegram.app.impl.command.ProcessCommandDelegate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -18,25 +18,26 @@ import java.util.List;
 @Slf4j
 @Service
 public class MyTelegramBot extends TelegramLongPollingBot {
-    private final BotProcessUseCase botProcessUseCase;
+    private final ProcessCommandDelegate processCommandDelegate;
     @Value("${tg.bot.token}")
     private String token;
 
     @Value("${tg.bot.name}")
     private String username;
 
-    public MyTelegramBot(BotProcessUseCase botProcessUseCase) {
-        this.botProcessUseCase = botProcessUseCase;
+    public MyTelegramBot(ProcessCommandDelegate processCommandDelegate) {
+        this.processCommandDelegate = processCommandDelegate;
         initCommands();
     }
 
     @Override
     public void onUpdateReceived(Update update) {
         long messageChatId = update.getMessage().getChatId();
+        String telegramId = update.getMessage().getFrom().getUserName();
         String messageText = update.getMessage().getText();
 
         if (update.hasMessage() && update.getMessage().hasText()) {
-            var result = botProcessUseCase.process(messageChatId, messageText);
+            var result = processCommandDelegate.processCommand(telegramId, messageText);
             sendMessage(messageChatId, result);
         }
     }

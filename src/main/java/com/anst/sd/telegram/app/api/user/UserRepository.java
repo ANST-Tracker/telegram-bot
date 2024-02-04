@@ -5,7 +5,9 @@ import com.anst.sd.telegram.domain.user.UserCode;
 import java.util.Optional;
 
 public interface UserRepository {
-    Optional<UserCode> findByTelegramId(Long telegramId);
+    boolean existsByTelegramId(String telegramId);
 
     UserCode save(UserCode userCode);
+
+    Optional<UserCode> findByTelegramId(String telegramId);
 }

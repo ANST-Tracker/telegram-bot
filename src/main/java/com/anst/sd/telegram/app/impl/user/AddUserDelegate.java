@@ -10,14 +10,14 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class AddUserUseCase implements AddUserInBound {
+public class AddUserDelegate implements AddUserInBound {
     private final UserRepository userRepository;
-    private final CreateUserUseCase createUserUseCase;
+    private final CreateUserDelegate createUserDelegate;
 
     @Override
-    public void addUser(String code, Long telegramId, String userId) {
-        if (!userRepository.findByTelegramId(telegramId).isPresent()) {
-            UserCode user = createUserUseCase.createUser(code, telegramId, userId);
+    public void addUser(String telegramId) {
+        if (!userRepository.existsByTelegramId(telegramId)) {
+            UserCode user = createUserDelegate.createUser(telegramId);
             userRepository.save(user);
         }
     }

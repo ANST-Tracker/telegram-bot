@@ -9,13 +9,13 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class CreateUserUseCase implements CreateUserInBound {
+public class CreateUserDelegate implements CreateUserInBound {
     @Override
-    public UserCode createUser(String code, Long telegramId, String userId) {
+    public UserCode createUser(String telegramId) {
         return UserCode.builder()
-                .code(code)
+                .code("test_code")
                 .telegramId(telegramId)
-                .userId(userId)
+                .userId("test_userId")
                 .build();
     }
 }

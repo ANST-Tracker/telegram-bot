@@ -2,7 +2,7 @@ package com.anst.sd.telegram.app.impl.command;
 
 import com.anst.sd.telegram.app.api.command.GetCodeInBound;
 import com.anst.sd.telegram.app.api.user.UserRepository;
-import com.anst.sd.telegram.domain.bot.BotChange;
+import com.anst.sd.telegram.app.impl.user.AddUserDelegate;
 import com.anst.sd.telegram.domain.command.MessagePool;
 import com.anst.sd.telegram.domain.user.UserCode;
 import lombok.RequiredArgsConstructor;
@@ -14,11 +14,14 @@ import java.util.Optional;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class GetCodeUseCase implements GetCodeInBound {
+public class GetCodeDelegate implements GetCodeInBound {
     private final UserRepository userRepository;
+    private final AddUserDelegate addUserDelegate;
 
     @Override
-    public BotChange handleGetCode(Long telegramId) {
+    public String handleGetCode(String telegramId) {
+        addUserDelegate.addUser(telegramId);
+
         Optional<UserCode> userCode = userRepository.findByTelegramId(telegramId);
 
         if (userCode.isPresent()) {
@@ -29,8 +32,8 @@ public class GetCodeUseCase implements GetCodeInBound {
             userRepository.save(user);
 
             log.info("Code has been received");
-            return new BotChange(" " + MessagePool.GET_CODE_SUCCESS + code);
+            return MessagePool.GET_CODE_SUCCESS + code;
         }
-        return new BotChange(MessagePool.GET_CODE_EMPTY);
+        return MessagePool.GET_CODE_EMPTY;
     }
 }
