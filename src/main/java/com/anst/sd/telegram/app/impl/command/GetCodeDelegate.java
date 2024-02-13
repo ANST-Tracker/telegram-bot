@@ -1,6 +1,5 @@
 package com.anst.sd.telegram.app.impl.command;
 
-import com.anst.sd.telegram.app.api.command.GetCodeInBound;
 import com.anst.sd.telegram.app.api.user.UserRepository;
 import com.anst.sd.telegram.app.impl.user.AddUserDelegate;
 import com.anst.sd.telegram.domain.command.MessagePool;
@@ -15,11 +14,10 @@ import java.util.Optional;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class GetCodeDelegate implements GetCodeInBound {
+public class GetCodeDelegate{
     private final UserRepository userRepository;
     private final AddUserDelegate addUserDelegate;
 
-    @Override
     @Transactional
     public String handleGetCode(String telegramId) {
         log.info("Handling code operation");
