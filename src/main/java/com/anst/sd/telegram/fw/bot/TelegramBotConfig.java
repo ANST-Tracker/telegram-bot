@@ -1,7 +1,6 @@
 package com.anst.sd.telegram.fw.bot;
 
-import com.anst.sd.telegram.adapter.rest.bot.MyTelegramBot;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -10,9 +9,9 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 @Component
+@RequiredArgsConstructor
 public class TelegramBotConfig {
-    @Autowired
-    MyTelegramBot bot;
+    private final MyTelegramBot bot;
     @EventListener({ContextRefreshedEvent.class})
     public void init() throws TelegramApiException {
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);

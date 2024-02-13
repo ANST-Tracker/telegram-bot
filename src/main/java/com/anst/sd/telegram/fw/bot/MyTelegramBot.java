@@ -1,6 +1,6 @@
-package com.anst.sd.telegram.adapter.rest.bot;
+package com.anst.sd.telegram.fw.bot;
 
-import com.anst.sd.telegram.app.impl.command.ProcessCommandDelegate;
+import com.anst.sd.telegram.app.impl.command.ProcessCommandUseCase;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -18,15 +18,15 @@ import java.util.List;
 @Slf4j
 @Service
 public class MyTelegramBot extends TelegramLongPollingBot {
-    private final ProcessCommandDelegate processCommandDelegate;
+    private final ProcessCommandUseCase processCommandUseCase;
     @Value("${tg.bot.token}")
     private String token;
 
     @Value("${tg.bot.name}")
     private String username;
 
-    public MyTelegramBot(ProcessCommandDelegate processCommandDelegate) {
-        this.processCommandDelegate = processCommandDelegate;
+    public MyTelegramBot(ProcessCommandUseCase processCommandUseCase) {
+        this.processCommandUseCase = processCommandUseCase;
         initCommands();
     }
 
@@ -37,7 +37,7 @@ public class MyTelegramBot extends TelegramLongPollingBot {
         String messageText = update.getMessage().getText();
 
         if (update.hasMessage() && update.getMessage().hasText()) {
-            var result = processCommandDelegate.processCommand(telegramId, messageText);
+            var result = processCommandUseCase.processCommand(telegramId, messageText);
             sendMessage(messageChatId, result);
         }
     }

@@ -12,12 +12,15 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class AddUserDelegate implements AddUserInBound {
     private final UserRepository userRepository;
-    private final CreateUserDelegate createUserDelegate;
 
     @Override
     public void addUser(String telegramId) {
         if (!userRepository.existsByTelegramId(telegramId)) {
-            UserCode user = createUserDelegate.createUser(telegramId);
+            UserCode user = UserCode.builder()
+                    .code("test_code")
+                    .userId(1L)
+                    .telegramId(telegramId)
+                    .build();
             userRepository.save(user);
         }
     }

@@ -8,6 +8,7 @@ import com.anst.sd.telegram.domain.user.UserCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -19,7 +20,9 @@ public class GetCodeDelegate implements GetCodeInBound {
     private final AddUserDelegate addUserDelegate;
 
     @Override
+    @Transactional
     public String handleGetCode(String telegramId) {
+        log.info("Handling code operation");
         addUserDelegate.addUser(telegramId);
 
         Optional<UserCode> userCode = userRepository.findByTelegramId(telegramId);

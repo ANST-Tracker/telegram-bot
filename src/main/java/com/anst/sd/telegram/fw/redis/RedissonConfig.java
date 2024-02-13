@@ -9,12 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 
 public class RedissonConfig {
-
     @Bean
-    RedissonClient redissonClient(
-            ObjectMapper objectMapper,
-            @Value("${redis.url}") String url
-    ) {
+    RedissonClient redissonClient(ObjectMapper objectMapper, @Value("${redis.url}") String url) {
         Config config = getCommonConfig(objectMapper);
         config.useSingleServer().setAddress((url));
 

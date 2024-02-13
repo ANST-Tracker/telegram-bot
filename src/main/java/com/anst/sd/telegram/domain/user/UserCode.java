@@ -14,10 +14,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Builder
 public class UserCode {
     @Id
-    private String id;
+    private Long id;
     @NotBlank
     @Indexed(unique = true)
-    private String userId;
+    private Long userId;
     @NotBlank
     @Indexed(unique = true)
     private String telegramId;
