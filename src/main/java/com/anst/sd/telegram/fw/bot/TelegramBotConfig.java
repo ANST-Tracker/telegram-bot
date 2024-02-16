@@ -12,6 +12,7 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 @RequiredArgsConstructor
 public class TelegramBotConfig {
     private final MyTelegramBot bot;
+
     @EventListener({ContextRefreshedEvent.class})
     public void init() throws TelegramApiException {
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
