@@ -11,16 +11,7 @@ logging:
     root: info
     com.anst.sd.telegram: DEBUG
 
-storage:
-  user-state: userStageStorage
-  user-name: userNameStorage
-  access-token: accessTokenStorage
-  refresh-token: refreshTokenStorage
-
-security:
-  ttl:
-    access: 10m
-    refresh: 168h
-
-redis:
-  url: ${REDIS_URL}
+spring:
+  data:
+    mongodb:
+      uri: ${MONGO_URL}
