@@ -1,9 +1,7 @@
 package com.anst.sd.telegram.domain.user;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,9 +10,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserCode {
     @Id
-    private Long id;
+    private String id;
     @NotBlank
     @Indexed(unique = true)
     private Long userId;

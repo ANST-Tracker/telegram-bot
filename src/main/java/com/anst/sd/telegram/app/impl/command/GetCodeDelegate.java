@@ -1,7 +1,6 @@
 package com.anst.sd.telegram.app.impl.command;
 
 import com.anst.sd.telegram.app.api.user.UserRepository;
-import com.anst.sd.telegram.app.impl.user.AddUserDelegate;
 import com.anst.sd.telegram.domain.command.MessagePool;
 import com.anst.sd.telegram.domain.user.UserCode;
 import lombok.RequiredArgsConstructor;
@@ -16,12 +15,10 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class GetCodeDelegate {
     private final UserRepository userRepository;
-    private final AddUserDelegate addUserDelegate;
 
     @Transactional
     public String handleGetCode(String telegramId) {
         log.info("Handling code operation");
-        addUserDelegate.addUser(telegramId);
 
         Optional<UserCode> userCode = userRepository.findByTelegramId(telegramId);
 

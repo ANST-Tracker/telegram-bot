@@ -1,4 +1,4 @@
-package com.anst.sd.telegram.fw.template;
+package com.anst.sd.telegram.fw;
 
 import org.springframework.boot.autoconfigure.web.client.RestTemplateBuilderConfigurer;
 import org.springframework.boot.web.client.RestTemplateBuilder;

@@ -1,4 +1,4 @@
-package com.anst.sd.telegram.fw.jackson;
+package com.anst.sd.telegram.fw;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

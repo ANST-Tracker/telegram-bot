@@ -1,5 +1,6 @@
-package com.anst.sd.telegram.fw.bot;
+package com.anst.sd.telegram.fw;
 
+import com.anst.sd.telegram.adapter.bot.MyTelegramBot;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
