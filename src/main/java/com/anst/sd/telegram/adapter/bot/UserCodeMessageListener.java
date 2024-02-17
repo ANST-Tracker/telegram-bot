@@ -1,6 +1,7 @@
-package com.anst.sd.telegram.app.impl.user;
+package com.anst.sd.telegram.adapter.bot;
 
 import com.anst.sd.telegram.adapter.MessageConverter;
+import com.anst.sd.telegram.app.api.user.CreateUserCodeInBound;
 import com.anst.sd.telegram.domain.user.UserCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -12,13 +13,12 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UserCodeMessageListener {
     private final MessageConverter<UserCode> messageConverter;
-    private final SaveUserCodeUseCase saveUserCodeUseCase;
+    private final CreateUserCodeInBound createUserCodeInBound;
 
     @KafkaListener(topics = "TG_SEND_CODE_RQ", groupId = "tgConsumer")
     public void listen(String message) {
         UserCode userCode = messageConverter.deserialize(message, UserCode.class);
-        saveUserCodeUseCase.save(userCode);
-
+        createUserCodeInBound.create(userCode);
         log.info("Object UserCode received: {}", userCode);
     }
 }
