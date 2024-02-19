@@ -10,7 +10,6 @@ import java.time.Duration;
 
 @Configuration
 public class RestTemplateConfig {
-
     @Bean
     @Primary
     public RestTemplateBuilder restTemplate(RestTemplateBuilderConfigurer configurer) {

@@ -18,7 +18,7 @@ public class GetCodeDelegate {
 
     @Transactional
     public String handleGetCode(String telegramId) {
-        log.info("Handling code operation");
+        log.info("The /get_code command was called. Starting to process the command");
 
         Optional<UserCode> userCode = userRepository.findByTelegramId(telegramId);
 
@@ -32,6 +32,7 @@ public class GetCodeDelegate {
             log.info("Code has been received");
             return MessagePool.GET_CODE_SUCCESS + code;
         }
+        log.error("User with that telegramId has not been found in database");
         return MessagePool.GET_CODE_EMPTY;
     }
 }

@@ -18,7 +18,7 @@ public class UserCodeMessageListener {
     @KafkaListener(topics = "TG_SEND_CODE_RQ", groupId = "tgConsumer")
     public void listen(String message) {
         UserCode userCode = messageConverter.deserialize(message, UserCode.class);
-        createUserCodeInBound.create(userCode);
         log.info("Object UserCode received: {}", userCode);
+        createUserCodeInBound.create(userCode);
     }
 }
