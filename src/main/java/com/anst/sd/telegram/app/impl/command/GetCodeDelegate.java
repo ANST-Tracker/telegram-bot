@@ -18,21 +18,16 @@ public class GetCodeDelegate {
 
     @Transactional
     public String handleGetCode(String telegramId) {
-        log.info("The /get_code command was called. Starting to process the command");
-
+        log.info("The /get_code command was called by user with telegramId {}", telegramId);
         Optional<UserCode> userCode = userRepository.findByTelegramId(telegramId);
-
         if (userCode.isPresent()) {
             UserCode user = userCode.get();
-
             String code = user.getCode();
             user.setCode(null);
             userRepository.save(user);
-
-            log.info("Code has been received");
             return MessagePool.GET_CODE_SUCCESS + code;
         }
-        log.error("User with that telegramId has not been found in database");
+        log.error("User with telegramId {} has not been found in database ", telegramId);
         return MessagePool.GET_CODE_EMPTY;
     }
 }

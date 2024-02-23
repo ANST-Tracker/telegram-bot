@@ -19,8 +19,8 @@ public class CreateUserCodeUseCase implements CreateUserCodeInBound {
     @Override
     @Transactional
     public UserCode create(UserCode userCode) {
+        log.info("Starting to create {} from Kafka queue", userCode);
         Optional<UserCode> existedUser = userRepository.findByTelegramId(userCode.getTelegramId());
-        log.info("Starting to create UserCode from Kafka queue");
         if (existedUser.isPresent()) {
             UserCode user = existedUser.get();
             user.setCode(userCode.getCode());

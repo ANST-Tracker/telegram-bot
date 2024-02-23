@@ -23,4 +23,13 @@ public class UserCode {
     private String telegramId;
     @NotBlank
     private String code;
+
+    @Override
+    public String toString() {
+        return "UserCode{" +
+                "userId=" + userId +
+                ", telegramId='" + telegramId + '\'' +
+                ", code='" + code + '\'' +
+                '}';
+    }
 }
