@@ -1,16 +1,16 @@
 package com.anst.sd.telegram.domain.user;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+@Data
 @Document
-@Getter
-@Setter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
 public class UserCode {
     @Id
@@ -23,13 +23,4 @@ public class UserCode {
     private String telegramId;
     @NotBlank
     private String code;
-
-    @Override
-    public String toString() {
-        return "UserCode{" +
-                "userId=" + userId +
-                ", telegramId='" + telegramId + '\'' +
-                ", code='" + code + '\'' +
-                '}';
-    }
 }
