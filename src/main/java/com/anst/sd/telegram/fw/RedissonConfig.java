@@ -1,4 +1,4 @@
-package com.anst.sd.telegram.fw.redis;
+package com.anst.sd.telegram.fw;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.redisson.Redisson;

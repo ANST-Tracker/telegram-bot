@@ -1,4 +1,4 @@
-package com.anst.sd.telegram.fw.bot;
+package com.anst.sd.telegram.adapter.bot;
 
 import com.anst.sd.telegram.app.impl.command.ProcessCommandUseCase;
 import lombok.extern.slf4j.Slf4j;

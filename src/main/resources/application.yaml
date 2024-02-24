@@ -1,7 +1,7 @@
 tg:
   bot:
     name: course_v1_bot
-    token: 6115795365:AAHM5HTbx9NAUjcSt_D6zU0R7UmkGIbZ8Ok
+    token: ${BOT_TOKEN}
 
 backend:
   url: http://localhost:8080/api

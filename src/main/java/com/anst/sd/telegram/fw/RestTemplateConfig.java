@@ -1,4 +1,4 @@
-package com.anst.sd.telegram.fw.template;
+package com.anst.sd.telegram.fw;
 
 import org.springframework.boot.autoconfigure.web.client.RestTemplateBuilderConfigurer;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -10,7 +10,6 @@ import java.time.Duration;
 
 @Configuration
 public class RestTemplateConfig {
-
     @Bean
     @Primary
     public RestTemplateBuilder restTemplate(RestTemplateBuilderConfigurer configurer) {
