@@ -81,13 +81,12 @@
             <version>20230227</version>
         </dependency>
 
-        <!--BROKERS-->
+        <!--BROKER-->
         <dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>
-            <version>3.1.1</version>
+            <version>3.0.1</version>
         </dependency>
-
     </dependencies>
     <dependencyManagement>
         <dependencies>
