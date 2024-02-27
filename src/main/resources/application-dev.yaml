@@ -14,7 +14,7 @@ logging:
 spring:
   data:
     mongodb:
-      uri: ${MONGO_URL}
+      uri: ${MONGO_URL_TG}
   kafka:
     path: ${KAFKA_URL}
 
