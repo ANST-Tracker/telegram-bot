@@ -16,8 +16,6 @@ spring:
     mongodb:
       uri: ${MONGO_URL_TG}
   kafka:
-    path: ${KAFKA_URL}
-
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
@@ -26,3 +24,5 @@ spring:
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringSerializer
+
+    bootstrap-servers: ${KAFKA_URL}
