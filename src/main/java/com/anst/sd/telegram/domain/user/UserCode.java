@@ -25,4 +25,6 @@ public class UserCode {
     private String telegramId;
     @NotBlank
     private String code;
+    @NotBlank
+    private Long chatId;
 }
