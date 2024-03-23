@@ -15,9 +15,11 @@ class NotificationDataTransientMapperTest extends AbstractUnitTest {
     }
 
     @Test
-    void mapToTransient__notificationData() {
-        NotificationDataDto source = readFromFile("/NotificationDataTransientMapperTest/notification.json", NotificationDataDto.class);
+    void mapToTransient() {
+        NotificationDataDto source = readFromFile("/NotificationDataTransientMapperTest/notificationDataDto.json", NotificationDataDto.class);
+
         NotificationData entity = mapper.mapToTransient(source);
-        assertEqualsToFile("/NotificationDataTransientMapperTest/notificationTransient.json", entity);
+
+        assertEqualsToFile("/NotificationDataTransientMapperTest/notificationData.json", entity);
     }
 }

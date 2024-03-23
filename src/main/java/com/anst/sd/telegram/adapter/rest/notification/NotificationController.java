@@ -19,8 +19,7 @@ public class NotificationController {
     private final SendNotificationInBound sendNotificationInBound;
 
     @PostMapping("/notification")
-    public void sendNotification(
-            @Valid @RequestBody NotificationDataDto notificationDataDto) {
+    public void sendNotification(@Valid @RequestBody NotificationDataDto notificationDataDto) {
         NotificationData data = notificationDataTransientMapper.mapToTransient(notificationDataDto);
         sendNotificationInBound.sendNotification(data);
     }

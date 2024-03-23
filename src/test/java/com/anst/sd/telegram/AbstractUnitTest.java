@@ -1,5 +1,6 @@
 package com.anst.sd.telegram;
 
+import com.anst.sd.telegram.domain.user.UserCode;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -104,7 +105,6 @@ public abstract class AbstractUnitTest {
     }
 
     static class LocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
-
         private final DateTimeFormatter fmt = DateTimeFormatter.ofPattern(DATE_FORMAT);
 
         @Override
@@ -112,17 +112,22 @@ public abstract class AbstractUnitTest {
                 throws IOException {
             gen.writeString(value.format(fmt));
         }
-
     }
 
     static class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
-
         private final DateTimeFormatter fmt = DateTimeFormatter.ofPattern(DATE_FORMAT);
 
         @Override
         public LocalDateTime deserialize(JsonParser p, DeserializationContext context) throws IOException {
             return LocalDateTime.parse(p.getValueAsString(), fmt);
         }
+    }
 
+    protected UserCode createUserCode() {
+        UserCode userCode = new UserCode();
+        userCode.setTelegramId("testTelegramId");
+        userCode.setChatId(12345L);
+        userCode.setUserId(1L);
+        return userCode;
     }
 }

@@ -4,12 +4,12 @@ import com.anst.sd.telegram.adapter.MessageConverter;
 import com.anst.sd.telegram.app.api.user.CreateUserCodeInBound;
 import com.anst.sd.telegram.domain.user.UserCode;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 @Component
-@Log4j2
+@Slf4j
 @RequiredArgsConstructor
 public class UserCodeMessageListener {
     private final MessageConverter<UserCode> messageConverter;

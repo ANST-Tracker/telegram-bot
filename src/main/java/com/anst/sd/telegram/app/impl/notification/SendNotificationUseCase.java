@@ -1,23 +1,23 @@
 package com.anst.sd.telegram.app.impl.notification;
 
-import com.anst.sd.telegram.app.api.bot.SendMessageByChatIdOutBound;
+import com.anst.sd.telegram.app.api.bot.SendTelegramMessageOutBound;
 import com.anst.sd.telegram.app.api.notification.NotificationData;
 import com.anst.sd.telegram.app.api.notification.SendNotificationInBound;
 import com.anst.sd.telegram.app.api.user.UserRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.format.DateTimeFormatter;
 
-import static com.anst.sd.telegram.domain.command.MessagePool.NOTIFICATION_DEADLINE_WARNING;
+import static com.anst.sd.telegram.domain.command.MessagePool.NOTIFICATION_MESSAGE;
 
 @Component
 @RequiredArgsConstructor
-@Log4j2
+@Slf4j
 public class SendNotificationUseCase implements SendNotificationInBound {
-    private final SendMessageByChatIdOutBound sendMessageByChatIdOutBound;
+    private final SendTelegramMessageOutBound sendTelegramMessageOutBound;
     private final UserRepository userRepository;
 
     @Override
@@ -26,12 +26,16 @@ public class SendNotificationUseCase implements SendNotificationInBound {
         log.info("Notification sending with data {}", data);
         String message = createMessage(data);
         long messageChatId = userRepository.findByTelegramId(data.getTelegramId()).getChatId();
-        sendMessageByChatIdOutBound.sendMessage(messageChatId, message);
+        sendTelegramMessageOutBound.sendMessage(messageChatId, message);
     }
+
+    // ===================================================================================================================
+    // = Implementation
+    // ===================================================================================================================
 
     private String createMessage(NotificationData data) {
         String formattedDeadline = data.getDeadline().format(DateTimeFormatter.ofPattern("HH:mm"));
-        return NOTIFICATION_DEADLINE_WARNING
+        return NOTIFICATION_MESSAGE
                 .formatted(data.getTaskName(), data.getProjectName(), formattedDeadline);
     }
 }

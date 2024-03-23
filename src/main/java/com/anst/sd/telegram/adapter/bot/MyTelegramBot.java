@@ -1,6 +1,6 @@
 package com.anst.sd.telegram.adapter.bot;
 
-import com.anst.sd.telegram.app.api.bot.SendMessageByChatIdOutBound;
+import com.anst.sd.telegram.app.api.bot.SendTelegramMessageOutBound;
 import com.anst.sd.telegram.app.api.command.ProcessCommandInBound;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +18,7 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class MyTelegramBot extends TelegramLongPollingBot implements SendMessageByChatIdOutBound {
+public class MyTelegramBot extends TelegramLongPollingBot implements SendTelegramMessageOutBound {
     private final ProcessCommandInBound processCommandInBound;
     @Value("${tg.bot.token}")
     private String token;
