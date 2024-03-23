@@ -1,3 +1,7 @@
+server:
+  servlet:
+    context-path: /tg
+
 tg:
   bot:
     name: course_v1_bot
