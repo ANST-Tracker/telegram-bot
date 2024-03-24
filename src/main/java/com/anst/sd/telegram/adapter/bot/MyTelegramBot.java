@@ -22,7 +22,6 @@ public class MyTelegramBot extends TelegramLongPollingBot implements SendTelegra
     private final ProcessCommandInBound processCommandInBound;
     @Value("${tg.bot.token}")
     private String token;
-
     @Value("${tg.bot.name}")
     private String username;
 
@@ -70,7 +69,6 @@ public class MyTelegramBot extends TelegramLongPollingBot implements SendTelegra
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
         message.setText(text);
-
         try {
             execute(message);
         } catch (TelegramApiException e) {

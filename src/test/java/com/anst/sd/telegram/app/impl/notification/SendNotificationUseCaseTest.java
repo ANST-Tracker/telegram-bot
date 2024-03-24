@@ -11,16 +11,17 @@ import org.mockito.Mock;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 import static com.anst.sd.telegram.domain.command.MessagePool.NOTIFICATION_MESSAGE;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 class SendNotificationUseCaseTest extends AbstractUnitTest {
     private static final LocalDateTime DEADLINE = LocalDateTime.now().plusDays(5);
     private static final String formattedDeadline = DEADLINE.format(DateTimeFormatter.ofPattern("HH:mm"));
+
     @Mock
     private UserRepository userRepository;
     @Mock
@@ -37,7 +38,7 @@ class SendNotificationUseCaseTest extends AbstractUnitTest {
         UserCode userCode = createUserCode();
         NotificationData data = createNotificationData();
         data.setTelegramId(userCode.getTelegramId());
-        when(userRepository.findByTelegramId(userCode.getTelegramId())).thenReturn(userCode);
+        when(userRepository.findByTelegramId(userCode.getTelegramId())).thenReturn(Optional.of(userCode));
 
         useCase.sendNotification(data);
 
@@ -46,6 +47,10 @@ class SendNotificationUseCaseTest extends AbstractUnitTest {
         verify(sendTelegramMessageOutBound).sendMessage(userCode.getChatId(), expectedMessage);
         assertNotNull(expectedMessage);
     }
+
+    // ===================================================================================================================
+    // = Implementation
+    // ===================================================================================================================
 
     private NotificationData createNotificationData() {
         NotificationData notificationData = new NotificationData();

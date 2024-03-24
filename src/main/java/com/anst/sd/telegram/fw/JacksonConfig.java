@@ -29,7 +29,6 @@ public class JacksonConfig {
     }
 
     static class LocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
-
         private final DateTimeFormatter fmt = DateTimeFormatter.ofPattern(DATE_FORMAT);
 
         @Override
@@ -37,11 +36,9 @@ public class JacksonConfig {
                 throws IOException {
             gen.writeString(value.format(fmt));
         }
-
     }
 
     static class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
-
         private final DateTimeFormatter fmt = DateTimeFormatter.ofPattern(DATE_FORMAT);
 
         @Override

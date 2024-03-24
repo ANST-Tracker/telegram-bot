@@ -19,7 +19,6 @@ public class TelegramBotConfig {
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
         try {
             telegramBotsApi.registerBot(bot);
-
         } catch (TelegramApiException E) {
             E.printStackTrace();
         }

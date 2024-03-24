@@ -5,6 +5,8 @@ import com.anst.sd.telegram.domain.user.UserCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 @RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
@@ -16,7 +18,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public UserCode findByTelegramId(String telegramId) {
+    public Optional<UserCode> findByTelegramId(String telegramId) {
         return userMongoRepository.findByTelegramId(telegramId);
     }
 }

@@ -4,12 +4,14 @@ import com.anst.sd.telegram.app.api.bot.SendTelegramMessageOutBound;
 import com.anst.sd.telegram.app.api.notification.NotificationData;
 import com.anst.sd.telegram.app.api.notification.SendNotificationInBound;
 import com.anst.sd.telegram.app.api.user.UserRepository;
+import com.anst.sd.telegram.domain.user.UserCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 import static com.anst.sd.telegram.domain.command.MessagePool.NOTIFICATION_MESSAGE;
 
@@ -25,7 +27,11 @@ public class SendNotificationUseCase implements SendNotificationInBound {
     public void sendNotification(NotificationData data) {
         log.info("Notification sending with data {}", data);
         String message = createMessage(data);
-        long messageChatId = userRepository.findByTelegramId(data.getTelegramId()).getChatId();
+        Optional<UserCode> userCode = userRepository.findByTelegramId(data.getTelegramId());
+        long messageChatId = 0;
+        if (userCode.isPresent()) {
+            messageChatId = userCode.get().getChatId();
+        }
         sendTelegramMessageOutBound.sendMessage(messageChatId, message);
     }
 
@@ -35,7 +41,7 @@ public class SendNotificationUseCase implements SendNotificationInBound {
 
     private String createMessage(NotificationData data) {
         String formattedDeadline = data.getDeadline().format(DateTimeFormatter.ofPattern("HH:mm"));
-        return NOTIFICATION_MESSAGE
-                .formatted(data.getTaskName(), data.getProjectName(), formattedDeadline);
+        return NOTIFICATION_MESSAGE.formatted(
+                data.getTaskName(), data.getProjectName(), formattedDeadline);
     }
 }

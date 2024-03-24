@@ -1,0 +1,32 @@
+#server:
+#  port: 8085
+#  servlet:
+#    context-path: /tg
+#tg:
+#  bot:
+#    name: course_v1_bot
+#    token: 6046387088:AAF6kGfCEY5zZIj9RwQPuXxFS61WUw4XR2Q
+#
+#backend:
+#  url: http://localhost:8080/api
+#
+#logging:
+#  level:
+#    root: info
+#    com.anst.sd.telegram: DEBUG
+#
+#spring:
+#  data:
+#    mongodb:
+#      uri: mongodb://mongo:mongo@localhost:27017/tg?authSource=admin
+#  kafka:
+#    producer:
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+#
+#    consumer:
+#      auto-offset-reset: earliest
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringSerializer
+#
+#    bootstrap-servers: localhost:9092

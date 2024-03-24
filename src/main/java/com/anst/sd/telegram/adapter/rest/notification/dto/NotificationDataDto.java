@@ -18,6 +18,5 @@ public class NotificationDataDto {
     String taskName;
     @NotBlank
     String projectName;
-    @NotBlank
     LocalDateTime deadline;
 }

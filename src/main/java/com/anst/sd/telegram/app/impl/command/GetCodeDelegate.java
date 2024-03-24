@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -17,12 +19,12 @@ public class GetCodeDelegate {
     @Transactional
     public String handleGetCode(String telegramId, long messageChatId) {
         log.info("The /get_code command was called by user with telegramId {}", telegramId);
-        UserCode userCode = userRepository.findByTelegramId(telegramId);
-        if (userCode != null) {
-            userCode.setChatId(messageChatId);
-            String code = userCode.getCode();
-            userCode.setCode(null);
-            userRepository.save(userCode);
+        Optional<UserCode> userCode = userRepository.findByTelegramId(telegramId);
+        if (userCode.isPresent()) {
+            userCode.get().setChatId(messageChatId);
+            String code = userCode.get().getCode();
+            userCode.get().setCode(null);
+            userRepository.save(userCode.get());
             return MessagePool.GET_CODE_SUCCESS + code;
         }
         log.error("User with telegramId {} has not been found in database ", telegramId);
