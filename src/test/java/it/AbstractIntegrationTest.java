@@ -39,6 +39,11 @@ public abstract class AbstractIntegrationTest {
     @Autowired
     protected MyTelegramBot myTelegramBot;
 
+    @BeforeEach
+    void clearDataBase() {
+        userMongoRepository.deleteAll();
+    }
+
     // ===================================================================================================================
     // = ObjectMapper utils
     // ===================================================================================================================
