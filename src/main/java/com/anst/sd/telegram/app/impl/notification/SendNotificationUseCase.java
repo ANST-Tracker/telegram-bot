@@ -3,6 +3,7 @@ package com.anst.sd.telegram.app.impl.notification;
 import com.anst.sd.telegram.app.api.bot.SendTelegramMessageOutBound;
 import com.anst.sd.telegram.app.api.notification.NotificationData;
 import com.anst.sd.telegram.app.api.notification.SendNotificationInBound;
+import com.anst.sd.telegram.app.api.user.UserNotFoundException;
 import com.anst.sd.telegram.app.api.user.UserRepository;
 import com.anst.sd.telegram.domain.user.UserCode;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,8 @@ import static com.anst.sd.telegram.domain.command.MessagePool.NOTIFICATION_MESSA
 @RequiredArgsConstructor
 @Slf4j
 public class SendNotificationUseCase implements SendNotificationInBound {
+    private static final DateTimeFormatter FORMATTED_DEADLINE = DateTimeFormatter.ofPattern("HH:mm");
+
     private final SendTelegramMessageOutBound sendTelegramMessageOutBound;
     private final UserRepository userRepository;
 
@@ -28,11 +31,10 @@ public class SendNotificationUseCase implements SendNotificationInBound {
         log.info("Notification sending with data {}", data);
         String message = createMessage(data);
         Optional<UserCode> userCode = userRepository.findByTelegramId(data.getTelegramId());
-        long messageChatId = 0;
-        if (userCode.isPresent()) {
-            messageChatId = userCode.get().getChatId();
+        if (userCode.isEmpty()) {
+            throw new UserNotFoundException(data.getTelegramId());
         }
-        sendTelegramMessageOutBound.sendMessage(messageChatId, message);
+        sendTelegramMessageOutBound.sendMessage(userCode.get().getChatId(), message);
     }
 
     // ===================================================================================================================
@@ -40,8 +42,7 @@ public class SendNotificationUseCase implements SendNotificationInBound {
     // ===================================================================================================================
 
     private String createMessage(NotificationData data) {
-        String formattedDeadline = data.getDeadline().format(DateTimeFormatter.ofPattern("HH:mm"));
-        return NOTIFICATION_MESSAGE.formatted(
-                data.getTaskName(), data.getProjectName(), formattedDeadline);
+        String deadline = data.getDeadline().format(FORMATTED_DEADLINE);
+        return NOTIFICATION_MESSAGE.formatted(data.getTaskName(), data.getProjectName(), deadline);
     }
 }

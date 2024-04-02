@@ -9,8 +9,10 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.Instant;
+
 @Data
-@Document
+@Document(collection = "user_code")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,6 +27,7 @@ public class UserCode {
     private String telegramId;
     @NotBlank
     private String code;
+    private Instant expirationTime;
     @NotBlank
     private Long chatId;
 }
