@@ -30,8 +30,6 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 @ActiveProfiles({"test"})
 @AutoConfigureMockMvc
 public abstract class AbstractIntegrationTest {
-    public static final Long DEVICE_ID = 1L;
-
     @Autowired
     protected MockMvc mockMvc;
     @Autowired
@@ -40,11 +38,6 @@ public abstract class AbstractIntegrationTest {
     protected UserMongoRepository userMongoRepository;
     @Autowired
     protected MyTelegramBot myTelegramBot;
-
-    @BeforeEach
-    void clearDataBase() {
-        userMongoRepository.deleteAll();
-    }
 
     // ===================================================================================================================
     // = ObjectMapper utils
