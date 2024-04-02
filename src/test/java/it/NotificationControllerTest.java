@@ -34,6 +34,7 @@ class NotificationControllerTest extends AbstractIntegrationTest {
         UserCode userCode = new UserCode();
         userCode.setTelegramId("eridiium");
         userCode.setUserId(1L);
+        userCode.setChatId(123L);
         userMongoRepository.save(userCode);
     }
 }
