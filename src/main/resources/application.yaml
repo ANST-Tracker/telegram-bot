@@ -1,3 +1,7 @@
+server:
+  port: 8085
+  servlet:
+    context-path: /tg
 tg:
   bot:
     name: course_v1_bot
@@ -12,6 +16,9 @@ logging:
     com.anst.sd.telegram: DEBUG
 
 spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
   data:
     mongodb:
       uri: mongodb://mongo:mongo@localhost:27017/tg?authSource=admin

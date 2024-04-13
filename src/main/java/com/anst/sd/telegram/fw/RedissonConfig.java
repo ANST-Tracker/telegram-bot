@@ -13,7 +13,6 @@ public class RedissonConfig {
     RedissonClient redissonClient(ObjectMapper objectMapper, @Value("${redis.url}") String url) {
         Config config = getCommonConfig(objectMapper);
         config.useSingleServer().setAddress((url));
-
         return Redisson.create(config);
     }
 

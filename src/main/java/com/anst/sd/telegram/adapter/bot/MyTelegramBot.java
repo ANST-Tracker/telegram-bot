@@ -1,6 +1,7 @@
 package com.anst.sd.telegram.adapter.bot;
 
-import com.anst.sd.telegram.app.impl.command.ProcessCommandUseCase;
+import com.anst.sd.telegram.app.api.bot.SendTelegramMessageOutBound;
+import com.anst.sd.telegram.app.api.command.ProcessCommandInBound;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -17,16 +18,15 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class MyTelegramBot extends TelegramLongPollingBot {
-    private final ProcessCommandUseCase processCommandUseCase;
+public class MyTelegramBot extends TelegramLongPollingBot implements SendTelegramMessageOutBound {
+    private final ProcessCommandInBound processCommandInBound;
     @Value("${tg.bot.token}")
     private String token;
-
     @Value("${tg.bot.name}")
     private String username;
 
-    public MyTelegramBot(ProcessCommandUseCase processCommandUseCase) {
-        this.processCommandUseCase = processCommandUseCase;
+    public MyTelegramBot(ProcessCommandInBound processCommandInBound) {
+        this.processCommandInBound = processCommandInBound;
         initCommands();
     }
 
@@ -37,7 +37,7 @@ public class MyTelegramBot extends TelegramLongPollingBot {
         String messageText = update.getMessage().getText();
 
         if (update.hasMessage() && update.getMessage().hasText()) {
-            var result = processCommandUseCase.processCommand(telegramId, messageText);
+            var result = processCommandInBound.processCommand(telegramId, messageText, messageChatId);
             sendMessage(messageChatId, result);
         }
     }
@@ -64,11 +64,11 @@ public class MyTelegramBot extends TelegramLongPollingBot {
         }
     }
 
+    @Override
     public void sendMessage(long chatId, String text) {
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
         message.setText(text);
-
         try {
             execute(message);
         } catch (TelegramApiException e) {

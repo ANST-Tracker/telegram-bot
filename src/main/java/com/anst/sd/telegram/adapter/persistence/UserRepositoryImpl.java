@@ -13,11 +13,6 @@ public class UserRepositoryImpl implements UserRepository {
     private final UserMongoRepository userMongoRepository;
 
     @Override
-    public boolean existsByTelegramId(String telegramId) {
-        return userMongoRepository.existsByTelegramId(telegramId);
-    }
-
-    @Override
     public UserCode save(UserCode userCode) {
         return userMongoRepository.save(userCode);
     }

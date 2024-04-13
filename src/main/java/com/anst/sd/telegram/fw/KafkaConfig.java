@@ -18,9 +18,10 @@ import java.util.Map;
 @EnableKafka
 @Configuration
 public class KafkaConfig {
+    private static final String TG_CONSUMER = "tgConsumer";
+
     @Autowired
     private KafkaProperties kafkaProperties;
-    private static final String TG_CONSUMER = "tgConsumer";
 
     @Bean
     public ConsumerFactory<String, String> consumerFactory() {
@@ -30,7 +31,6 @@ public class KafkaConfig {
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
-
         return new DefaultKafkaConsumerFactory<>(props);
     }
 
@@ -38,7 +38,6 @@ public class KafkaConfig {
     public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, String> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
-
         factory.setConsumerFactory(consumerFactory());
         return factory;
     }

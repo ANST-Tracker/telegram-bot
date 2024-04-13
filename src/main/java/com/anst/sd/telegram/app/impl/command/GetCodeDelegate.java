@@ -17,14 +17,15 @@ public class GetCodeDelegate {
     private final UserRepository userRepository;
 
     @Transactional
-    public String handleGetCode(String telegramId) {
+    public String handleGetCode(String telegramId, long messageChatId) {
         log.info("The /get_code command was called by user with telegramId {}", telegramId);
-        Optional<UserCode> userCode = userRepository.findByTelegramId(telegramId);
-        if (userCode.isPresent()) {
-            UserCode user = userCode.get();
-            String code = user.getCode();
-            user.setCode(null);
-            userRepository.save(user);
+        Optional<UserCode> optionalUserCode = userRepository.findByTelegramId(telegramId);
+        if (optionalUserCode.isPresent()) {
+            UserCode userCode = optionalUserCode.get();
+            String code = userCode.getCode();
+            userCode.setCode(null);
+            userCode.setChatId(messageChatId);
+            userRepository.save(userCode);
             return MessagePool.GET_CODE_SUCCESS + code;
         }
         log.error("User with telegramId {} has not been found in database ", telegramId);

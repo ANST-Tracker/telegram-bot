@@ -3,12 +3,12 @@ package com.anst.sd.telegram.adapter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-@Log4j2
+@Slf4j
 public class MessageConverter<T> {
     private final ObjectMapper objectMapper;
 
