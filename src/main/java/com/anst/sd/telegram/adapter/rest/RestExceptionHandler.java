@@ -18,6 +18,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         logger.warn(ex.getMessage(), ex);
         var errorInfo = createErrorInfo(ex);
         errorInfo.setType(ErrorInfoDto.ErrorType.CLIENT);
-        return new ResponseEntity<>(errorInfo, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorInfo, HttpStatus.NOT_FOUND);
     }
 }
