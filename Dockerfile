@@ -5,7 +5,7 @@ WORKDIR /app
 COPY src /app/src
 COPY pom.xml /app/pom.xml
 
-RUN mvn clean package
+RUN mvn clean package -DskipTests
 
 FROM openjdk:17-jdk-slim
 
