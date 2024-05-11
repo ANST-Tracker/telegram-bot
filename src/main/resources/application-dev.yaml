@@ -1,6 +1,12 @@
 server:
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: on_param
+    include-exception: false
   servlet:
     context-path: /tg
+  port: 8085
 
 tg:
   bot:
