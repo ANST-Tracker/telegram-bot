@@ -2,6 +2,8 @@ package com.anst.sd.telegram.adapter.bot;
 
 import com.anst.sd.telegram.app.api.bot.SendTelegramMessageOutBound;
 import com.anst.sd.telegram.app.api.command.ProcessCommandInBound;
+import com.anst.sd.telegram.domain.command.ECommand;
+import com.anst.sd.telegram.domain.command.MessagePool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -27,7 +29,6 @@ public class MyTelegramBot extends TelegramLongPollingBot implements SendTelegra
 
     public MyTelegramBot(ProcessCommandInBound processCommandInBound) {
         this.processCommandInBound = processCommandInBound;
-        initCommands();
     }
 
     @Override
@@ -55,10 +56,8 @@ public class MyTelegramBot extends TelegramLongPollingBot implements SendTelegra
     public void initCommands() {
         try {
             List<BotCommand> listOfCommands = new ArrayList<>();
-            execute(new SetMyCommands(
-                    listOfCommands,
-                    new BotCommandScopeDefault(),
-                    null));
+            listOfCommands.add(new BotCommand(ECommand.CODE.getCommand(), MessagePool.GET_CODE_COMMAND));
+            execute(new SetMyCommands(listOfCommands, new BotCommandScopeDefault(), null));
         } catch (TelegramApiException E) {
             log.warn("Initialization of commands processing failed");
         }

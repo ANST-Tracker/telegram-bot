@@ -20,7 +20,6 @@ public class ProcessCommandUseCase implements ProcessCommandInBound {
         String result = "";
         switch (command) {
             case CODE -> result = getCodeDelegate.handleGetCode(username, messageChatId);
-            //...
         }
         return result;
     }
