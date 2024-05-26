@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 public enum ECommand {
     CODE("/get_code");
 
-    public static final Map<String, ECommand> stringCommands = Arrays.stream(ECommand.values())
+    private static final Map<String, ECommand> STRING_TO_COMMAND_MAP = Arrays.stream(ECommand.values())
             .collect(Collectors.toMap(ECommand::getCommand, o -> o));
 
     private final String command;
@@ -18,5 +18,13 @@ public enum ECommand {
 
     public String getCommand() {
         return command;
+    }
+
+    public static boolean isCommand(String message) {
+        return STRING_TO_COMMAND_MAP.containsKey(message);
+    }
+
+    public static ECommand defineCommand(String message) {
+        return STRING_TO_COMMAND_MAP.get(message);
     }
 }

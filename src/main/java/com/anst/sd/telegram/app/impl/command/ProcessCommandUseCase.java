@@ -7,20 +7,25 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.anst.sd.telegram.domain.command.MessagePool.DEFAULT_ERROR;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class ProcessCommandUseCase implements ProcessCommandInBound {
     private final GetCodeDelegate getCodeDelegate;
+    private final CreateTaskDelegate createTaskDelegate;
 
     @Override
     @Transactional
-    public String processCommand(String username, String message, long messageChatId) {
-        var command = ECommand.stringCommands.get(message);
-        String result = "";
-        switch (command) {
-            case CODE -> result = getCodeDelegate.handleGetCode(username, messageChatId);
+    public String processCommand(String telegramId, String message, long messageChatId) {
+        if (!ECommand.isCommand(message)) {
+            return createTaskDelegate.create(telegramId, message);
         }
-        return result;
+        ECommand command = ECommand.defineCommand(message);
+        if (command == ECommand.CODE) {
+            return getCodeDelegate.handleGetCode(telegramId, messageChatId);
+        }
+        return DEFAULT_ERROR;
     }
 }

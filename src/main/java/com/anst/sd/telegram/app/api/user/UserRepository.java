@@ -8,4 +8,6 @@ public interface UserRepository {
     UserCode save(UserCode userCode);
 
     Optional<UserCode> findByTelegramId(String telegramId);
+
+    boolean existsByTelegramId(String telegramId);
 }
