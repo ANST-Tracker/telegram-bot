@@ -1,5 +1,6 @@
 package com.anst.sd.telegram.adapter.api;
 
+import com.anst.sd.telegram.adapter.api.dto.CreateTaskInternalDto;
 import com.anst.sd.telegram.app.api.ServiceUnavailableException;
 import com.anst.sd.telegram.app.api.task.CreateTaskOutbound;
 import feign.FeignException;
@@ -17,7 +18,7 @@ public class ApiAdapter implements CreateTaskOutbound {
     public void create(String telegramId, String name) {
         log.info("Sending create task request to api service. user {}, taskName {}", telegramId, name);
         try {
-            apiFeignClient.createTask(telegramId, name);
+            apiFeignClient.createTask(new CreateTaskInternalDto(telegramId, name));
         } catch (FeignException e) {
             log.error("Error occurred while sending create task request request", e);
             throw new ServiceUnavailableException(e);
