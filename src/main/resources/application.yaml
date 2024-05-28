@@ -7,9 +7,6 @@ tg:
     name: course_v1_bot
     token: ${BOT_TOKEN}
 
-backend:
-  url: http://localhost:8080/api
-
 logging:
   level:
     root: info
@@ -33,3 +30,8 @@ spring:
       value-deserializer: org.apache.kafka.common.serialization.StringSerializer
 
     bootstrap-servers: localhost:9092
+
+service:
+  api:
+    api:
+      url: https://localhost:8889 #url сервиса telegram-bot или заглушки. Нужно указать

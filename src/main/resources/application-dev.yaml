@@ -13,8 +13,10 @@ tg:
     name: course_v1_bot
     token: ${BOT_TOKEN}
 
-backend:
-  url: ${API_URL}
+service:
+  api:
+    api:
+      url: ${SERVICE_API_API_URL}
 
 logging:
   level:

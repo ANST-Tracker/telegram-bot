@@ -21,4 +21,9 @@ public class UserRepositoryImpl implements UserRepository {
     public Optional<UserCode> findByTelegramId(String telegramId) {
         return userMongoRepository.findByTelegramId(telegramId);
     }
+
+    @Override
+    public boolean existsByTelegramId(String telegramId) {
+        return userMongoRepository.existsByTelegramId(telegramId);
+    }
 }
