@@ -21,7 +21,7 @@ spring:
       ddl-auto: update
   data:
     mongodb:
-      uri: mongodb://tg:trckr652652365@localhost:27017/tg?authSource=admin
+      uri: ${MONGO_URL_TG}
   kafka:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
