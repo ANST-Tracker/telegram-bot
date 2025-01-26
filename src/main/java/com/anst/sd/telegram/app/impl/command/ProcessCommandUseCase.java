@@ -14,14 +14,10 @@ import static com.anst.sd.telegram.domain.command.MessagePool.DEFAULT_ERROR;
 @RequiredArgsConstructor
 public class ProcessCommandUseCase implements ProcessCommandInBound {
     private final GetCodeDelegate getCodeDelegate;
-    private final CreateTaskDelegate createTaskDelegate;
 
     @Override
     @Transactional
     public String processCommand(String telegramId, String message, long messageChatId) {
-        if (!ECommand.isCommand(message)) {
-            return createTaskDelegate.create(telegramId, message);
-        }
         ECommand command = ECommand.defineCommand(message);
         if (command == ECommand.CODE) {
             return getCodeDelegate.handleGetCode(telegramId, messageChatId);

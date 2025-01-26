@@ -9,6 +9,4 @@ import java.util.Optional;
 @Repository
 public interface UserMongoRepository extends MongoRepository<UserCode, String> {
     Optional<UserCode> findByTelegramId(String telegramId);
-
-    boolean existsByTelegramId(String telegramId);
 }
