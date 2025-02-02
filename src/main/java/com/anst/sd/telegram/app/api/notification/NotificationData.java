@@ -6,15 +6,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDateTime;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class NotificationData {
     String telegramId;
-    String taskName;
-    String projectName;
-    LocalDateTime deadline;
+    String title;
+    String body;
 }

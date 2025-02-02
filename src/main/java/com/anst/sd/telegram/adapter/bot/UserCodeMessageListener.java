@@ -1,6 +1,5 @@
 package com.anst.sd.telegram.adapter.bot;
 
-import com.anst.sd.telegram.adapter.MessageConverter;
 import com.anst.sd.telegram.app.api.user.CreateUserCodeInBound;
 import com.anst.sd.telegram.domain.user.UserCode;
 import lombok.RequiredArgsConstructor;

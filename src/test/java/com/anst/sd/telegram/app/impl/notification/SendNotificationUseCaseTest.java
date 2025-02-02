@@ -9,8 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import static com.anst.sd.telegram.domain.command.MessagePool.NOTIFICATION_MESSAGE;
@@ -19,9 +17,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 class SendNotificationUseCaseTest extends AbstractUnitTest {
-    private static final LocalDateTime DEADLINE = LocalDateTime.now().plusDays(5);
-    private static final String formattedDeadline = DEADLINE.format(DateTimeFormatter.ofPattern("HH:mm"));
-
     @Mock
     private UserRepository userRepository;
     @Mock
@@ -42,8 +37,7 @@ class SendNotificationUseCaseTest extends AbstractUnitTest {
 
         useCase.sendNotification(data);
 
-        String expectedMessage = NOTIFICATION_MESSAGE
-                .formatted(data.getTaskName(), data.getProjectName(), formattedDeadline);
+        String expectedMessage = NOTIFICATION_MESSAGE.formatted(data.getTitle(), data.getBody());
         verify(sendTelegramMessageOutBound).sendMessage(userCode.getChatId(), expectedMessage);
         assertNotNull(expectedMessage);
     }
@@ -54,9 +48,8 @@ class SendNotificationUseCaseTest extends AbstractUnitTest {
 
     private NotificationData createNotificationData() {
         NotificationData notificationData = new NotificationData();
-        notificationData.setTaskName("testTaskName");
-        notificationData.setProjectName("Routine");
-        notificationData.setDeadline(DEADLINE);
+        notificationData.setTitle("testTaskName");
+        notificationData.setBody("Routine");
         return notificationData;
     }
 }

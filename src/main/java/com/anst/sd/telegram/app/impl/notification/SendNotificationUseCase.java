@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import static com.anst.sd.telegram.domain.command.MessagePool.NOTIFICATION_MESSAGE;
@@ -20,8 +19,6 @@ import static com.anst.sd.telegram.domain.command.MessagePool.NOTIFICATION_MESSA
 @RequiredArgsConstructor
 @Slf4j
 public class SendNotificationUseCase implements SendNotificationInBound {
-    private static final DateTimeFormatter FORMATTED_DEADLINE = DateTimeFormatter.ofPattern("HH:mm");
-
     private final SendTelegramMessageOutBound sendTelegramMessageOutBound;
     private final UserRepository userRepository;
 
@@ -29,20 +26,11 @@ public class SendNotificationUseCase implements SendNotificationInBound {
     @Transactional
     public void sendNotification(NotificationData data) {
         log.info("Notification sending with data {}", data);
-        String message = createMessage(data);
+        String message = NOTIFICATION_MESSAGE.formatted(data.getTitle(), data.getBody());
         Optional<UserCode> userCode = userRepository.findByTelegramId(data.getTelegramId());
-        if (userCode.isEmpty()) {
+        if (userCode.isEmpty() || userCode.get().getChatId() == null) {
             throw new UserNotFoundException(data.getTelegramId());
         }
         sendTelegramMessageOutBound.sendMessage(userCode.get().getChatId(), message);
-    }
-
-    // ===================================================================================================================
-    // = Implementation
-    // ===================================================================================================================
-
-    private String createMessage(NotificationData data) {
-        String deadline = data.getDeadline().format(FORMATTED_DEADLINE);
-        return NOTIFICATION_MESSAGE.formatted(data.getTaskName(), data.getProjectName(), deadline);
     }
 }
